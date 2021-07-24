@@ -1,50 +1,41 @@
-const connection = require("./connection");
-const util = require("util");
-const query = util.promisify(connection.query).bind(connection);
+const pool = require("./connection");
 
+const add = async (idUser, idMovies) => {
+  console.log("am ajuns");
+  const command = `Insert IGNORE into UserMovie(idUser,idMovie) Values ('${idUser}','${idMovies}')`;
+  const prom = new Promise((resolve, reject) => {
+    pool.query(command, (err, data) => {
+      if (err) throw Error;
+      resolve(data);
+    });
+  });
+  return prom;
+};
 
-const add = async (idUser , idMovies)=>{
-    const vCommand = `Select * from UserMovie Where iduser = ${idUser} and idMovie ='${idMovies}'`;
-    try{
-        const data =await query(vCommand);
-        if(data.length > 0)
-            throw new Error("Exista");
-    }catch(err){
-        throw new Error(err.message);
-    }
-    console.log("eee")
-    const command =`Insert IGNORE into UserMovie(idUser,idMovie) Values ('${idUser}','${idMovies}')`;
-    try{
-        const data =await query(command);
-        return true;
-    }catch(err){
-        throw new Error("err");
-    }
-}
+const del = async (idUser, idMovie) => {
+  const command = `DELETE FROM UserMovie WHERE idUser = ${idUser} and idMovie = '${idMovie}' `;
+  const prom = new Promise((resolve, reject) => {
+    pool.query(command, (err, data) => {
+      if (err) throw Error;
+      resolve(data);
+    });
+  });
+  return prom;
+};
 
-const  del = async(id) =>{
-    const command=`DELETE FROM UserMovie WHERE id = ${id}`;
-    try{
-        const data = await query(command);
-        return true;
-    }catch(err){
-        throw new Error(err);
-    }
-}
+const getMovieForUser = async (id) => {
+  const vCommand = `Select * from UserMovie Where iduser = ${id}`;
+  const prom = new Promise((resolve, reject) => {
+    pool.query(vCommand, (err, data) => {
+      if (err) throw Error;
+      resolve(data);
+    });
+  });
+  return prom;
+};
 
-const getMovieForUser = async (id) =>{
-    const vCommand = `Select * from UserMovie Where iduser = ${id}`;
-    try{
-        const data =await query(vCommand);
-        return data;
-    }catch(err){
-        throw new Error(err.message);
-    }
-}
-
-
-module.exports={
-    addUserMovie:add,
-    deleteUserMovie:del,
-    getMovieForUser:getMovieForUser
-}
+module.exports = {
+  addUserMovie: add,
+  deleteUserMovie: del,
+  getMovieForUser: getMovieForUser,
+};

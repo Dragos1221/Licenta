@@ -2,8 +2,8 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import SearchIcon from "@material-ui/icons/Search";
+import ListIcon from "@material-ui/icons/List";
 
 export const mainListItems = (
   <div>
@@ -23,17 +23,16 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
     <ListItem
       button
       onClick={() => {
-        window.location.assign("/main");
+        window.location.assign("/myList");
       }}
     >
       <ListItemIcon>
-        <SearchIcon />
+        <ListIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="My movies list" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

@@ -1,0 +1,13 @@
+.title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.one-details {
+  display: flex;
+  align-items: center;
+}
+.detail {
+  font-size: 15px;
+  margin-left: 5px;
+}

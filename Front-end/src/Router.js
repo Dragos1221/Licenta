@@ -9,7 +9,9 @@ import {
 
 import MainPage from "./MainPage";
 import PrivateRoute from "./PrivateRoute";
-import LoginPage from "./pages/Logpage2"
+import LoginPage from "./pages/Logpage2";
+import MovieList from "./pages/MovieList";
+import MoviePage from "./pages/MoviePage";
 
 export default function () {
   return (
@@ -17,6 +19,12 @@ export default function () {
       <Switch>
         <Route exact path="/main">
           <PrivateRoute component={MainPage}></PrivateRoute>
+        </Route>
+        <Route exact path="/movie">
+          <PrivateRoute component={MoviePage}></PrivateRoute>
+        </Route>
+        <Route exact path="/myList">
+          <PrivateRoute component={MovieList}></PrivateRoute>
         </Route>
         <Route exact path="/">
           <LoginPage></LoginPage>

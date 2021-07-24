@@ -1,26 +1,34 @@
-const connection = require("./connection");
-const util = require("util");
-const query = util.promisify(connection.query).bind(connection);
+const pool = require("./connection");
 
+const searchMovies = async (title) => {
+  const command = `SELECT * FROM Movie`;
+  const prom = new Promise((resolve, reject) => {
+    pool.query(command, (err, data) => {
+      if (err) reject(err);
+      const result = data.reduce((acc, elem) => {
+        if (elem.title.includes(title)) acc.push(elem);
+        return acc;
+      }, []);
+      resolve(result);
+    });
+  });
+  return prom;
+};
 
-const searchMovies = async (title)=>{
-    const command = `SELECT * FROM Movie`
+const getMovieById = async (id) => {
+  const command = `SELECT * FROM Movie Where id="${id}" `;
+  console.log(command);
+  const prom = new Promise((resolve, reject) => {
+    pool.query(command, (err, data) => {
+      if (err) reject(err);
+      if (data !== undefined && data.length != 0) resolve(data[0]);
+      resolve({ title: -1 });
+    });
+  });
+  return prom;
+};
 
-    console.log(command)
-    try{
-        const data =await query(command);
-        const result = data.reduce((acc,elem)=>
-        {
-            if(elem.title.includes(title))
-                acc.push(elem)
-            return acc;
-        },[])
-        return result;
-    }catch(err){
-        throw new Error(err);
-    }
-}
-
-module.exports ={
-   searchMovies:searchMovies,
-}
+module.exports = {
+  searchMovies: searchMovies,
+  getMovieById,
+};
