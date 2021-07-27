@@ -65,10 +65,11 @@ export default function MoviePage() {
   const getRecommanded = async () => {
     if (movie.title !== "0") {
       try {
-        // const result = await getMovieRecommanded({
-        //   title: movie.title,
-        //   rating: 5,
-        // });
+        const result = await getMovieRecommanded({
+          title: movie.title,
+          rating: 5,
+        });
+        setList(result.data)
       } catch (err) {
         window.alert("a crapat recomandarea");
       }
@@ -83,6 +84,7 @@ export default function MoviePage() {
 
     try {
       await addRating({ idMovie: idMovie, idUser, rating: newValue });
+      setMyRating(newValue)
     } catch (err) {
       alert("a  crapat adaugare rating");
     }
