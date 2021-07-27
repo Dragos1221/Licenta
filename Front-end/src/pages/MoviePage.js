@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Container from "@material-ui/core/Container";
-import { getMovieById, addRating, getRating } from "../Remote";
+import { getMovieById, addRating, getRating,getMovieRecommanded } from "../Remote";
 import Rating from "@material-ui/lab/Rating";
 import "../styles/moviePage.css";
 
@@ -21,18 +21,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MoviePage() {
   const classes = useStyles();
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState({title:"0"});
   const [myRating, setMyRating] = useState(0);
 
-  useEffect(async () => {
+  useEffect(() => {
+    getMovie();
+  }, []);
+
+  useEffect(  ()=>{
+    getRecommanded()
+  },[movie])
+
+   const getMovie = async ()=>{
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const idMovie = urlParams.get("id");
     const idUser = sessionStorage.getItem("tokenLicenta");
-    console.log(idMovie);
     try {
-      const movie = await getMovieById({ id: idMovie });
-      const rating = await getRating({ idUser, idMovie });
+      const movie =  await getMovieById({ id: idMovie });
+      const rating =  await getRating({ idUser, idMovie });
       if (rating.data.data.length > 0)
         setMyRating(rating.data.data[0].rating || 0);
       setMovie(movie.data.movie);
@@ -40,7 +47,18 @@ export default function MoviePage() {
     } catch (err) {
       setMovie({ title: "Nu s-a putut incarca", actors: "None" });
     }
-  }, []);
+   }
+
+
+  const getRecommanded = async ()=>{
+    if(movie.title !== "0"){
+      try{
+        const result = await getMovieRecommanded({title:movie.title,rating:5});
+        console.log(result);
+      }catch(err){
+        window.alert("a crapat recomandarea")
+      }}
+  }
 
   const addratingEvent = async (event, newValue) => {
     const queryString = window.location.search;

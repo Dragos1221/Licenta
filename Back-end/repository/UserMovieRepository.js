@@ -34,8 +34,20 @@ const getMovieForUser = async (id) => {
   return prom;
 };
 
+const getAllMovieDetails=async (id) => {
+  const vCommand = `Select * from Movie INNER JOIN UserMovie ON UserMovie.idUser=${id} AND Movie.id = UserMovie.idMovie`;
+  const prom = new Promise((resolve, reject) => {
+    pool.query(vCommand, (err, data) => {
+      if (err) throw Error;
+      resolve(data);
+    });
+  });
+  return prom;
+};
+
 module.exports = {
   addUserMovie: add,
   deleteUserMovie: del,
   getMovieForUser: getMovieForUser,
+  getAllMovieDetails
 };

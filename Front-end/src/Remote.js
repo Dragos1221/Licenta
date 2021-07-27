@@ -4,6 +4,10 @@ const remote = axios.create({
   baseURL: `http://localhost:3300`,
 });
 
+const remoteRecommander = axios.create({
+  baseURL: `http://127.0.0.1:5000`,
+});
+
 const login = (body) => {
   return remote.post("/login", body);
 };
@@ -36,6 +40,11 @@ const addRating = (body) => {
 const getRating = (body) => {
   return remote.post("/usrm/getrating", body);
 };
+
+
+const getMovieRecommanded = (body) => {
+  return remoteRecommander.post("/reco/movie", body);
+};
 export {
   login,
   searchMovie,
@@ -45,4 +54,5 @@ export {
   deleteMovieFromList,
   addRating,
   getRating,
+  getMovieRecommanded
 };

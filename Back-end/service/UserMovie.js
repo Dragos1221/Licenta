@@ -3,6 +3,7 @@ const {
   addUserMovie,
   deleteUserMovie,
   getMovieForUser,
+  getAllMovieDetails
 } = require("../repository/UserMovieRepository");
 
 const { addRating, getRating } = require("../repository/ratingRepository");
@@ -61,10 +62,21 @@ const getRatingService = async (req, res) => {
   }
 };
 
+const getAllMovieDetailsService = async (req, res) => {
+  const { idUser } = req.body;
+  console.log(idUser, "Dsaaaaa");
+  try {
+    const data = await getAllMovieDetails(idUser);
+    res.status(200).send({ status: true, data: data });
+  } catch (err) {
+    res.status(400).send({ err: err.message });
+  }
+}
 module.exports = {
   addUserMovieService,
   delUserMovieService,
   getMovie,
   addRatingService,
   getRatingService,
+  getAllMovieDetailsService
 };
