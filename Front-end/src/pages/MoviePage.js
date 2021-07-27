@@ -3,7 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Container from "@material-ui/core/Container";
-import { getMovieById, addRating, getRating,getMovieRecommanded } from "../Remote";
+import MovieCard from "../components/movieCard";
+import {
+  getMovieById,
+  addRating,
+  getRating,
+  getMovieRecommanded,
+} from "../Remote";
+import { Grid } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import "../styles/moviePage.css";
 
@@ -21,44 +28,52 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MoviePage() {
   const classes = useStyles();
-  const [movie, setMovie] = useState({title:"0"});
+  const [movie, setMovie] = useState({ title: "0" });
   const [myRating, setMyRating] = useState(0);
+  const [recommandedList, setList] = useState([
+    { title: "dsa", actors: "asdsa" },
+    { title: "dsa", actors: "asdsa" },
+    { title: "dsa", actors: "asdsa" },
+  ]);
 
   useEffect(() => {
     getMovie();
   }, []);
 
-  useEffect(  ()=>{
-    getRecommanded()
-  },[movie])
+  useEffect(() => {
+    getRecommanded();
+  }, [movie]);
 
-   const getMovie = async ()=>{
+  const getMovie = async () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const idMovie = urlParams.get("id");
     const idUser = sessionStorage.getItem("tokenLicenta");
     try {
-      const movie =  await getMovieById({ id: idMovie });
-      const rating =  await getRating({ idUser, idMovie });
+      const movie = await getMovieById({ id: idMovie });
+      const rating = await getRating({ idUser, idMovie });
       if (rating.data.data.length > 0)
         setMyRating(rating.data.data[0].rating || 0);
+      console.log(movie.data.movie);
       setMovie(movie.data.movie);
       console.log(movie);
     } catch (err) {
       setMovie({ title: "Nu s-a putut incarca", actors: "None" });
     }
-   }
+  };
 
-
-  const getRecommanded = async ()=>{
-    if(movie.title !== "0"){
-      try{
-        const result = await getMovieRecommanded({title:movie.title,rating:5});
-        console.log(result);
-      }catch(err){
-        window.alert("a crapat recomandarea")
-      }}
-  }
+  const getRecommanded = async () => {
+    if (movie.title !== "0") {
+      try {
+        // const result = await getMovieRecommanded({
+        //   title: movie.title,
+        //   rating: 5,
+        // });
+      } catch (err) {
+        window.alert("a crapat recomandarea");
+      }
+    }
+  };
 
   const addratingEvent = async (event, newValue) => {
     const queryString = window.location.search;
@@ -73,12 +88,23 @@ export default function MoviePage() {
     }
   };
 
+  const getGridItems = () => {
+    return recommandedList.reduce((reducer, item) => {
+      reducer.push(
+        <Grid item>
+          <MovieCard details={item}></MovieCard>
+        </Grid>
+      );
+      return reducer;
+    }, []);
+  };
+
   return (
     <div className={classes.root}>
       <NavBar></NavBar>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container className={classes.container}>
           <div className="title-container">
             <h1>{movie.title}</h1>
           </div>
@@ -124,6 +150,11 @@ export default function MoviePage() {
                 onChange={(event, newValue) => {}}
               />
             </div>
+          </div>
+          <div>
+            <Grid container spacing={5}>
+              {getGridItems()}
+            </Grid>
           </div>
         </Container>
       </main>

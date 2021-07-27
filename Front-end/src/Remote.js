@@ -17,7 +17,7 @@ const searchMovie = (body) => {
 };
 
 const getMyMovie = (body) => {
-  return remote.post("/usrm/search", body);
+  return remote.post("/usrm/getAllMovie", body);
 };
 
 const getMovieById = (body) => {
@@ -29,7 +29,6 @@ const addMovieToList = (body) => {
 };
 
 const deleteMovieFromList = (body) => {
-  console.log("body", body);
   return remote.post("/usrm/del", body);
 };
 
@@ -40,7 +39,6 @@ const addRating = (body) => {
 const getRating = (body) => {
   return remote.post("/usrm/getrating", body);
 };
-
 
 const getMovieRecommanded = (body) => {
   return remoteRecommander.post("/reco/movie", body);
@@ -54,5 +52,5 @@ export {
   deleteMovieFromList,
   addRating,
   getRating,
-  getMovieRecommanded
+  getMovieRecommanded,
 };

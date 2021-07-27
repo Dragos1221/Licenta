@@ -19,16 +19,7 @@ const useStyles = makeStyles({
 
 export default function ({ details, refreshList }) {
   const classes = useStyles();
-  const { idMovie } = details;
-  const [movie, setMovie] = useState({ title: "", actors: "" });
-  useEffect(async () => {
-    try {
-      const movie = await getMovieById({ id: idMovie });
-      setMovie(movie.data.movie);
-    } catch (err) {
-      setMovie({ title: "Nu s-a putut incarca", actors: "None" });
-    }
-  }, []);
+  const { idMovie, title, actors } = details;
 
   const deleteMovie = async () => {
     const idUser = sessionStorage.getItem("tokenLicenta");
@@ -48,10 +39,10 @@ export default function ({ details, refreshList }) {
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {movie.title}
+            {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {movie.actors}
+            {actors}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -70,7 +61,7 @@ export default function ({ details, refreshList }) {
           size="small"
           color="primary"
           onClick={() => {
-            window.location.assign(`/movie?id=${movie.id}`);
+            window.location.assign(`/movie?id=${idMovie}`);
           }}
         >
           View more

@@ -15,7 +15,6 @@ import { searchMovie, getMyMovie } from "./Remote";
 //Style
 import "./styles/mainPage.css";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -43,7 +42,8 @@ export default function Dashboard() {
   }, []);
 
   const getMovies = async () => {
-    const result = await getMyMovie({ idUser: 1 });
+    const idUser = sessionStorage.getItem("tokenLicenta");
+    const result = await getMyMovie({ idUser: idUser });
     setMyMovie(result.data.data);
   };
 
@@ -51,7 +51,6 @@ export default function Dashboard() {
     if (searchInput !== "")
       try {
         const result = await searchMovie({ title: searchInput });
-        console.log(result.data);
         setMovie(result.data.result);
       } catch (err) {
         alert(err + "main page");
@@ -60,8 +59,9 @@ export default function Dashboard() {
 
   const isInMyList = (movieId) => {
     var ok = false;
+    console.log(myMovie);
     myMovie.forEach((e) => {
-      if (e.idMovie === movieId) {
+      if (e.title === movieId) {
         ok = true;
       }
     });
@@ -74,7 +74,7 @@ export default function Dashboard() {
         <Grid item>
           <MovieCard
             details={item}
-            isInList={isInMyList(item.id)}
+            isInList={isInMyList(item.title)}
             refresList={getMovies}
           ></MovieCard>
         </Grid>

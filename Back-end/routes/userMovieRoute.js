@@ -5,7 +5,7 @@ const {
   getMovie,
   addRatingService,
   getRatingService,
-  getAllMovieDetailsService
+  getAllMovieDetailsService,
 } = require("../service/UserMovie");
 
 const router = express.Router();
@@ -15,6 +15,6 @@ router.post("/del", delUserMovieService);
 router.post("/search", getMovie);
 router.post("/addRating", addRatingService);
 router.post("/getRating", getRatingService);
-router.post("/getAllMovie",getAllMovieDetailsService)
+router.post("/getAllMovie", getAllMovieDetailsService);
 
 module.exports = router;

@@ -38,7 +38,9 @@ export default function () {
   }, []);
 
   const getMovieList = async () => {
-    const result = await getMyMovie({ idUser: 1 });
+    const idUser = sessionStorage.getItem("tokenLicenta");
+    const result = await getMyMovie({ idUser: idUser });
+    console.log(result);
     setMovie(result.data.data);
   };
 

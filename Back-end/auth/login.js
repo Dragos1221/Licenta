@@ -12,13 +12,11 @@ const login = async (request, response) => {
   //Validate data
   const msg = "";
   if (msg !== "") response.status(400).send({ error: msg });
-  console.log("am ajuns");
   //Verify if the username exist
   const userList = await findUser(username);
   console.log(userList.length);
   if (userList.length !== 1)
     response.status(400).send({ error: "Username is not found" });
-
   //Verify
   const databaseUser = new User(userList[0].user, userList[0].password);
   const id = userList[0].id;
