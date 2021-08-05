@@ -22,6 +22,39 @@
 \subsection{Inregistrare}
 \par Procesul de inregistrare este unul simplu, pasii fiind urmatorii:
 \begin{enumerate}
-  \item The individual entries are indicated with a black dot, a so-called bullet.
-  \item The text in the entries may be of any length.
+  	\item Se trimit datele catre server
+  	\item Se valideaza datele primite 
+ 	\item Daca datele sunt valide se verifica daca numele utilizatorului se afla in baza de date deoarece numele trebuie sa fie unic pentru fiecare utiliztor
+	\item Daca totul este bine pana la acest pas se face has la parola pentru o mai buna securitate
+		\begin{figure}[htbp]
+			\centerline{\includegraphics[width=15cm, height=4cm]{figures/hasparola.png}}
+			\caption{Has la parola.}
+			\label{fig}
+		\end{figure}
+	\item Următorul pas este de a apela functția din repositoy care adaugă un user in baza de date.
+		\begin{figure}[htbp]
+			\centerline{\includegraphics[width=19cm, height=6cm]{figures/adaugare user.png}}
+			\caption{Adaugare user in baza de date.}
+			\label{fig}
+		\end{figure}	
+	\item Dacă adăugarea s-a efectuat cu succes se returneaza un messaj de succes altfel se returnează un mesajul de eroare.
+\end{enumerate}
+
+\subsection{Autentificare}
+\par Pașii pentru procesul de autentificare sunt următorii
+\begin{enumerate}
+  	\item Se trimit datele catre server
+  	\item Se valideaza datele primite
+  	\item Se verifica daca username-ul se afla in baza de date 
+		\begin{figure}[htbp]
+			\centerline{\includegraphics[width=19cm, height=6cm]{figures/cautare user.png}}
+			\caption{Cautare dupa username in baza de date}
+			\label{fig}
+		\end{figure}	
+	\item Daca se găsește user-ul in baza de date se verifică parola trimisă in requst cu cea din baza de date apoi se trimite raspunsul in functie de potrivirea celor doua parole, daca rapunsul este valid se va trimite id-ul user-ului care va reprezenta token-ul pentru front-end, daca  parolele nu corespund se va trimite status 400 si un mesaj de eroare.
+		\begin{figure}[htbp]
+			\centerline{\includegraphics[width=19cm, height=6cm]{figures/verificare login.png}}
+			\caption{Verificare parola si trimitere raspuns}
+			\label{fig}
+		\end{figure}	
 \end{enumerate}
