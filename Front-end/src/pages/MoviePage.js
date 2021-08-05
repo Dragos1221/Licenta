@@ -94,7 +94,9 @@ export default function MoviePage() {
     return recommandedList.reduce((reducer, item) => {
       reducer.push(
         <Grid item>
-          <MovieCard details={item}></MovieCard>
+          <MovieCard details={item} 
+          
+          buttons={false} ></MovieCard>
         </Grid>
       );
       return reducer;
@@ -148,7 +150,7 @@ export default function MoviePage() {
               <h2>Movie rating:</h2>
               <Rating
                 name="simple-controlled"
-                value={5}
+                value={Number.parseInt(movie.rating/movie.votes)}
                 onChange={(event, newValue) => {}}
               />
             </div>

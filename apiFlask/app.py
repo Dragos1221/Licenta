@@ -29,7 +29,7 @@ mycursor.execute("SELECT * FROM Movie")
 df = pd.DataFrame(mycursor.fetchall())
 df.columns = mycursor.column_names
 mydb.close()
-imdb = pd.read_csv(r"C:\Users\drago\Desktop\New folder\IMDb movies.csv")
+# imdb = pd.read_csv(r"C:\Users\drago\Desktop\New folder\IMDb movies.csv")
 
 
 # df = imdb[['imdb_title_id','title', 'year', 'genre', 'language', 'director', 'writer', 'actors', 'description']]

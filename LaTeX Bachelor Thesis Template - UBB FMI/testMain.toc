@@ -1,0 +1,8 @@
+\babel@toc {romanian}{}
+\contentsline {chapter}{\numberline {1}Introducere}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Capitolul 3: Back-end technologie}{2}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Node Js}{2}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Subsectiune}{3}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Sectiune}{3}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Subsectiune}{3}{subsection.2.2.1}%
+\contentsline {chapter}{\numberline {3}Concluzii}{4}{chapter.3}%

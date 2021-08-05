@@ -18,10 +18,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ({ details, isInList, refresList }) {
+export default function ({ details, isInList, refresList, buttons = true }) {
   const classes = useStyles();
   const { title, actors } = details;
-
   const addMovie = async () => {
     const token = sessionStorage.getItem("tokenLicenta");
     console.log("fac call");
@@ -47,15 +46,19 @@ export default function ({ details, isInList, refresList }) {
       </CardActionArea>
       <CardActions>
         {!isInList ? (
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              addMovie();
-            }}
-          >
-            Add to my list
-          </Button>
+          buttons ? (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                addMovie();
+              }}
+            >
+              Add to my list
+            </Button>
+          ) : (
+            ""
+          )
         ) : (
           ""
         )}
