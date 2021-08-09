@@ -12,7 +12,6 @@ const getMoviesFromSearch = async (req, res) => {
       result: data,
     });
   } catch (err) {
-    console.log(err.message);
     res.status(400).send({
       err: err,
     });
