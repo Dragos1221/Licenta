@@ -19,6 +19,12 @@
 
 \par Serverul de Node Js il folosesc pentru a face inregistrare, login, returanrea tuturor filmelor care contin un numit sub titlu, adaugarea unui film la lista utilizatorului, returnarea a tuturor filmelor unui utilizator si adaugarea de rating a unui film. Cu ajutorul pachetului Express stabilesc rutele si pornesc serverul. Cand se face un request pe o ruta, se apeleaza functia asignata din Service, care are rol de a modela datele in functie de cum avem nevoie. Pentru a comunica cu baza de date ne folosim de Repository, acesta face legatura cu baza de date.
 
+		\begin{figure}[htbp]
+			\centerline{\includegraphics[width=13cm, height=10cm]{figures/diagrama clase node js.png}}
+			\caption{Arhitectura server Node Js .}
+			\label{fig}
+		\end{figure}
+
 \subsection{Inregistrare}
 \par Procesul de inregistrare este unul simplu, pasii fiind urmatorii:
 \begin{enumerate}
