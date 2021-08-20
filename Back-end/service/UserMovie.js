@@ -42,7 +42,6 @@ const getMovie = async (req, res) => {
 };
 
 const addRatingService = async (req, res) => {
-  console.log("daa");
   const { idUser, idMovie, rating } = req.body;
   try {
     const data = await addRating(idUser, idMovie, rating);

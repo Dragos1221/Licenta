@@ -5,7 +5,7 @@ const addRating = async (idUser, idMovies, rating) => {
   const commandUp = `Update Movie Set rating= rating + ${rating} , votes=votes+1 Where id = '${idMovies}'`;
   const prom = new Promise((resolve, reject) => {
     pool.query(commandUp, (err, data) => {
-      if (err) console.log("Nu S-a adaugat", err);
+      if (err) throw new Error(err);
     });
     pool.query(command, (err, data) => {
       if (err) throw Error;

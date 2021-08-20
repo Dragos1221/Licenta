@@ -1,4 +1,3 @@
-import { Details, Movie } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
@@ -69,7 +68,7 @@ export default function MoviePage() {
           title: movie.title,
           rating: 5,
         });
-        setList(result.data)
+        setList(result.data);
       } catch (err) {
         window.alert("a crapat recomandarea");
       }
@@ -84,7 +83,7 @@ export default function MoviePage() {
 
     try {
       await addRating({ idMovie: idMovie, idUser, rating: newValue });
-      setMyRating(newValue)
+      setMyRating(newValue);
     } catch (err) {
       alert("a  crapat adaugare rating");
     }
@@ -94,9 +93,7 @@ export default function MoviePage() {
     return recommandedList.reduce((reducer, item) => {
       reducer.push(
         <Grid item>
-          <MovieCard details={item} 
-          
-          buttons={false} ></MovieCard>
+          <MovieCard details={item} buttons={false}></MovieCard>
         </Grid>
       );
       return reducer;
@@ -150,7 +147,7 @@ export default function MoviePage() {
               <h2>Movie rating:</h2>
               <Rating
                 name="simple-controlled"
-                value={Number.parseInt(movie.rating/movie.votes)}
+                value={Number.parseInt(movie.rating / movie.votes)}
                 onChange={(event, newValue) => {}}
               />
             </div>

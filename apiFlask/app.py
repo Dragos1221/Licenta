@@ -35,11 +35,8 @@ df = df.fillna(' ')
 stop = set(stopwords.words('english'))
 df['keywords'] = df['description'].str.split().apply(lambda x: [item for item in x if item not in stop])
 df['keywords'] = df['keywords'].str.join(' ')
-# df.drop('description', axis=1, inplace=True)
 
 
-# df['imdb_title_id'] = df['imdb_title_id'].str.extract(r'([1-9][0-9]*|0)\b', expand=False)
-# df = df.rename(columns={'imdb_title_id':'movie_id'})
 df['genre'] = df['genre'].str.replace(',', '')
 df['actors'] = df['actors'].str.replace(',', '')
 df['writer'] = df['writer'].str.replace(',', '')
@@ -51,7 +48,6 @@ df = df.astype(str)
 def combine_features(row):
     return row['director'] + " " + row['genre'] + " " + row['actors'] + " " + row['keywords']
 df['bow'] = df.apply(combine_features, axis=1)
-# df1 = df.head(10000)
 df1=df
 
 cv = CountVectorizer()
@@ -95,13 +91,8 @@ def movie_recommender(movie,rating, n=100):
     recommended_movies = recommended_movies.groupby(['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes','score']).sum().sort_values('score', ascending=False).reset_index()
     return recommended_movies.head(n) #return n (default=100) most similar movies
 
-# test_list_imdb = [('Miss Jerry', 4), ("Cleopatra", 3)]
-# #return top 5 highest scored movies
-# print(movie_recommender_cb(test_list_imdb, 5))
-
 @app.route('/', methods=['GET'])
 def runAlgorithm():
-
   return "Dragos"
 
 @app.route('/test', methods=['POST'])
@@ -123,7 +114,6 @@ def runAlgorithm3():
     request_data = request.get_json()
     title = request_data['title']
     rating = request_data['rating']
-
     recommanded=movie_recommender(title,rating, 5)
     recomanded_json=recommanded.to_json(orient="records")
     response = app.response_class(
