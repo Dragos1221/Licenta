@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import LoginPage from "./pages/Logpage2";
 import MovieList from "./pages/MovieList";
 import MoviePage from "./pages/MoviePage";
+import RegisterPage from "./pages/RegisterPage";
 
 export default function () {
   return (
@@ -28,6 +29,9 @@ export default function () {
         </Route>
         <Route exact path="/">
           <LoginPage></LoginPage>
+        </Route>
+        <Route exact path="/register">
+          <RegisterPage></RegisterPage>
         </Route>
         <Route render={() => <Redirect to={{ pathname: "/" }} />} />
       </Switch>

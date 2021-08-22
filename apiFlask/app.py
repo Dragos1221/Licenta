@@ -35,8 +35,6 @@ df = df.fillna(' ')
 stop = set(stopwords.words('english'))
 df['keywords'] = df['description'].str.split().apply(lambda x: [item for item in x if item not in stop])
 df['keywords'] = df['keywords'].str.join(' ')
-
-
 df['genre'] = df['genre'].str.replace(',', '')
 df['actors'] = df['actors'].str.replace(',', '')
 df['writer'] = df['writer'].str.replace(',', '')
@@ -54,17 +52,23 @@ cv = CountVectorizer()
 count_matrix = cv.fit_transform(df1['bow'])
 cos_sim = cosine_similarity(count_matrix)
 
+for raw in cos_sim:
+    index=0
+    for x in raw:
+        if df1['votes'][index] !="0":
+            x=x+int(df1['votes'][index])/(int(df1['votes'][index])*100)
+        index+=1
+    break 
+
+
 features_imdb = df1[['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes']].reset_index()
 def recommend_sim_features(movie, rating):
     
     movie_index = features_imdb[features_imdb['title'] == movie]['index'].values[0] #get index from movie title to retrieve similarity scores from the similarity matrix
-    
     sim_scores = pd.Series(cos_sim[movie_index]).sort_values(ascending=False) #find the highest similarity scores
-    
-    sim_feat_movies = pd.DataFrame({ 'score' : sim_scores[1:101]*(rating-2.5)}).reset_index() #Create dataframe with the movies' 100 highest scored movies (itself excluded)
+    sim_feat_movies = pd.DataFrame({ 'score' : sim_scores[1:101]}).reset_index() #Create dataframe with the movies' 100 highest scored movies (itself excluded)
     sim_feat_movies = sim_feat_movies.merge(features_imdb) #merge with features_imdb to retrieve movie_id and year
     sim_feat_movies = sim_feat_movies[['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes','score']] #change order of columns and drop index
-    
     return sim_feat_movies
 
 def movie_recommender_cb(user_movies, n=100):

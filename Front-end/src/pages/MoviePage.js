@@ -12,6 +12,7 @@ import {
 import { Grid } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import "../styles/moviePage.css";
+import Toople from "../components/toople";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +69,7 @@ export default function MoviePage() {
           title: movie.title,
           rating: 5,
         });
+        console.log(result);
         setList(result.data);
       } catch (err) {
         window.alert("a crapat recomandarea");

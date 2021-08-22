@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import MovieCard from "../components/movieCardMyList";
 import Navigation from "../components/NavBar";
 import { getMyMovie } from "../Remote";
+import AddIcon from "@material-ui/icons/Add";
+import Toople from "../components/toople";
 
 //Style
 import "../styles/mainPage.css";
@@ -48,11 +50,7 @@ export default function () {
     return movieList.reduce((reducer, item) => {
       reducer.push(
         <Grid key={item.id} item style={{ marginTop: "10px" }}>
-          <MovieCard
-            key={item.id}
-            details={item}
-            refreshList={getMovieList}
-          ></MovieCard>
+          <Toople item={item} getMovieList={getMovieList}></Toople>
         </Grid>
       );
       return reducer;

@@ -12,6 +12,9 @@ const login = (body) => {
   return remote.post("/login", body);
 };
 
+const register = (body) => {
+  return remote.post("/register", body);
+};
 const searchMovie = (body) => {
   return remote.post("/movie/search", body);
 };
@@ -53,4 +56,5 @@ export {
   addRating,
   getRating,
   getMovieRecommanded,
+  register,
 };

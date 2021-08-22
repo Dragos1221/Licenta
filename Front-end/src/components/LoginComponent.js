@@ -21,26 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#e20074",
   },
   form: {
     width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
-    color: "white",
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: "#e20074",
-    "&:hover": {
-      backgroundColor: "#e20074",
-    },
   },
-  cssLabel: {
-    "&$focused": {
-      // increase the specificity for the pseudo class
-      color: "red",
-    },
-  },
+  cssLabel: {},
 
   cssOutlinedInput: {
     "&$cssFocused $notchedOutline": {
@@ -148,14 +137,25 @@ export default function LoginComponent({
             }}
           />
           <Button
-            type="button"
+            color="primary"
+            variant="contained"
             fullWidth
-            className={classes.submit}
             onClick={() => {
               login();
             }}
           >
             Sign In
+          </Button>
+          <Button
+            style={{ marginTop: "20px" }}
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              window.location.assign("/register");
+            }}
+          >
+            Rgister
           </Button>
         </form>
       </div>
