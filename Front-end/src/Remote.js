@@ -46,6 +46,11 @@ const getRating = (body) => {
 const getMovieRecommanded = (body) => {
   return remoteRecommander.post("/reco/movie", body);
 };
+
+const getMovieRecommandedList = (body) => {
+  return remoteRecommander.post("/test", body);
+};
+
 export {
   login,
   searchMovie,
@@ -57,4 +62,5 @@ export {
   getRating,
   getMovieRecommanded,
   register,
+  getMovieRecommandedList,
 };

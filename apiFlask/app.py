@@ -62,7 +62,7 @@ for raw in cos_sim:
 
 
 features_imdb = df1[['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes']].reset_index()
-def recommend_sim_features(movie, rating):
+def recommend_sim_features(movie):
     
     movie_index = features_imdb[features_imdb['title'] == movie]['index'].values[0] #get index from movie title to retrieve similarity scores from the similarity matrix
     sim_scores = pd.Series(cos_sim[movie_index]).sort_values(ascending=False) #find the highest similarity scores
@@ -76,20 +76,19 @@ def movie_recommender_cb(user_movies, n=100):
     #Loop through list one by one and append every returned dataframe to recommended_movies
     for item in user_movies:
         movie= item[0]
-        rating = item[1]
         #Error management in case of a movie in the list can't be found in the dataset
         try:
-            recommended_movies = recommended_movies.append(recommend_sim_features(movie, rating))
+            recommended_movies = recommended_movies.append(recommend_sim_features(movie))
         except: print(movie + ' was not in the IMDb dataset')    
     #Group movies and sum the score, sort by highest score descending
     recommended_movies = recommended_movies.groupby(['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes','score']).sum().sort_values('score', ascending=False).reset_index()
     return recommended_movies.head(n) #return n (default=100) most similar movies
 
-def movie_recommender(movie,rating, n=100):
+def movie_recommender(movie, n=100):
     recommended_movies = pd.DataFrame() #create dataframe to append similar movies
     #Loop through list one by one and append every returned dataframe to recommended_movies
     try:
-        recommended_movies = recommended_movies.append(recommend_sim_features(movie, rating))
+        recommended_movies = recommended_movies.append(recommend_sim_features(movie))
     except: print(movie + ' was not in the IMDb dataset')    
     #Group movies and sum the score, sort by highest score descending
     recommended_movies = recommended_movies.groupby(['id', 'title', 'genre', 'country', 'director', 'writer', 'actors','description', 'rating', 'votes','score']).sum().sort_values('score', ascending=False).reset_index()
@@ -103,7 +102,6 @@ def runAlgorithm():
 def runAlgorithm2():
     request_data = request.get_json()
     test_list_imdb = request_data['test_list_imdb']
-    print(type(test_list_imdb[0]))
     recommanded=movie_recommender_cb(test_list_imdb, 5)
     recomanded_json=recommanded.to_json(orient="records")
     response = app.response_class(
@@ -117,8 +115,7 @@ def runAlgorithm2():
 def runAlgorithm3():
     request_data = request.get_json()
     title = request_data['title']
-    rating = request_data['rating']
-    recommanded=movie_recommender(title,rating, 5)
+    recommanded=movie_recommender(title,5)
     recomanded_json=recommanded.to_json(orient="records")
     response = app.response_class(
         response=recomanded_json,
