@@ -67,9 +67,7 @@ export default function MoviePage() {
       try {
         const result = await getMovieRecommanded({
           title: movie.title,
-          rating: 5,
         });
-        console.log(result);
         setList(result.data);
       } catch (err) {
         window.alert("a crapat recomandarea");

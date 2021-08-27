@@ -4,11 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 //My components
-import MovieCard from "../components/movieCardMyList";
+import MovieCard from "../components/movieCard";
 import Navigation from "../components/NavBar";
 import { getMyMovie } from "../Remote";
 import AddIcon from "@material-ui/icons/Add";
 import Toople from "../components/toople";
+import { getMovieRecommandedList } from "../Remote";
 
 //Style
 import "../styles/mainPage.css";
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
 export default function () {
   const classes = useStyles();
   const [movieList, setMovie] = useState([]);
+  const [movieRec, setListRec] = useState([]);
+  const [l, setL] = useState([]);
+  const [recomList, setRecom] = useState([]);
 
   useEffect(() => {
     try {
@@ -39,10 +43,13 @@ export default function () {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("da");
+  }, [movieRec]);
+
   const getMovieList = async () => {
     const idUser = sessionStorage.getItem("tokenLicenta");
     const result = await getMyMovie({ idUser: idUser });
-    console.log(result);
     setMovie(result.data.data);
   };
 
@@ -50,11 +57,59 @@ export default function () {
     return movieList.reduce((reducer, item) => {
       reducer.push(
         <Grid key={item.id} item style={{ marginTop: "10px" }}>
-          <Toople item={item} getMovieList={getMovieList}></Toople>
+          <Toople
+            item={item}
+            getMovieList={getMovieList}
+            addF={addRec}
+            delF={delRec}
+          ></Toople>
         </Grid>
       );
       return reducer;
     }, []);
+  };
+
+  const getGridItems2 = () => {
+    return recomList.reduce((reducer, item) => {
+      reducer.push(
+        <Grid key={item.id} item style={{ marginTop: "10px" }}>
+          <MovieCard details={item} buttons={false}></MovieCard>
+        </Grid>
+      );
+      return reducer;
+    }, []);
+  };
+
+  const addRec = (item) => {
+    var list = movieRec;
+    list.push(item);
+    var l2 = [...l];
+    l2.push(item);
+    setListRec(list);
+    setL(l2);
+  };
+
+  const delRec = (item) => {
+    var list = [...l];
+    list = list.filter((itemList) => itemList.id !== item.id);
+    setL(list);
+  };
+
+  const getListMovieRecom = () => {
+    var list = l.reduce((reducer, item) => {
+      reducer.push(item.title);
+      return reducer;
+    }, []);
+    return list;
+  };
+
+  const getRecom = async (l) => {
+    try {
+      const result = await getMovieRecommandedList({ test_list_imdb: l });
+      setRecom(result.data);
+    } catch (e) {
+      window.alert("Eroare");
+    }
   };
 
   return (
@@ -63,7 +118,36 @@ export default function () {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+          <h2>Movie for recomandation:</h2>
+          <ul>
+            {l.reduce((reducer, item) => {
+              reducer.push(<li key={item.id}>{item.title}</li>);
+              return reducer;
+            }, [])}
+          </ul>
+          <button
+            onClick={() => {
+              const l = getListMovieRecom();
+              const recom = getRecom(l);
+            }}
+          >
+            Recom
+          </button>
           <div className="searchContainer"></div>
+          <h2>Filme recomandate:</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexWrap: "wrap",
+            }}
+          >
+            <Grid container spacing={5}>
+              {getGridItems2()}
+            </Grid>
+          </div>
+
+          <h2>Your movie list:</h2>
           <div
             style={{
               display: "flex",
