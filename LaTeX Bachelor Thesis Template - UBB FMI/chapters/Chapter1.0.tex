@@ -1,8 +1,26 @@
 \chapter{Introducere }
+\par  Datorită creșterii în masă a informațiilor de pe internet, este destul de greu de a ajunge la cea ce ne interesează sau să găsim ceva pe placul nostru, de exeplu în domeniul cinematografic de multe ori oameni nu găsesc un film pe placul lor. Scopul acestei lucrări este de a crea un algoritm cu ajutorul căreia să se recomande filme utilizatorilor în funcție de alte filme, iar  acest algoritm să fie incoporat într-un site web unde utilizatorul să poată să primească recomandări de filme. Partea inovativă a acestei lucrarifiind modul în care se diferențiază filmele cu similaritate apropiată, dar și modul în care un utilizator își poate creea el o propie lista din care să se facă recomandări de filme.
+
+\par Primul pas în dezvoltarea unei lucrări și a unei aplicații este  stabilirea unui scop și să se propună o soluție, așa că în primul capitol se stabilește problema propusă și se descrie pe scurt soluția propusă.
+
+\par În capitolul doi se prezintă o privire de asamblu a algoritmului care face recomandări de filme unde sunt explicații pe rând pașii generali ai algoritmului.
+
+
+\par Capitolul trei prezintă toate cazuile de utilizare ale apicatiei: cum ar fi autentificare, înregistrare, adăugare film la lista, etc. Acesta este un capitol destul de important deoarece în el se regăsește și câte o diagramă seventiala pentru fiecare caz de utilizare astfel încât cititorul să poată înțelege cum funcționează aplicația în spate. Capitolul se termină cu o descriere a modului în care utilizatorul poate folosi aplicația.
+
+\par În capitolul patru și cinci se descriu pe rând tehnologiile folosite pentru dezvoltarea aplicației pe back-end: Node Js, Javascript, MySQL, Python, Flask, dar și cele de front-end: HTML, CSS, React și Typescript.
+
+\par În capitolul șase se prezintă în detaliu modul în care aplicația a fost dezoltata. În primul rând se descrie cum a fost gândit proiectarea bazei de date, apoi descrierea primului server care este scris în Node Js urmat de descrierea serverului de Flask cu ajutorul căruia se face recomandarea de filme, capitolul încheindu-se cu descrierea părții de front-end.
+
+\par În ultimul se prezintă o mică concluzie, dar și viitoare îmbunătățiri pe care aplicația și algoritmul le-ar putea avea.
+
 \section{Motivatie}
 \label{sec:ch3sec1}
 
-\par In ultimii ani internetul este intr-o continua extindere pe aproximativ toate domeniile. După cum se spune că totul are avantajele și dezavantajele sale prin urmare, odată cu extinderea domeniilor  vine supraîncărcare de informații și dificultăți în extragerea datelor.Pentru a putea trece mai usor peste aceasta problema sistemele de recomandari joaca un rol destul de important.
-\par Cadrul sistemului de recomandări joacă un rol vital în navigarea pe internet de astăzi, fie că este vorba de cumpărarea unui produs de pe un site de comerț electronic sau vizionarea unui film la un serviciu video la cerere. În viața noastră de zi cu zi, depindem de recomandările oferite de alte persoane, fie din gură din gură, fie din recenziile sondajelor generale. Oamenii folosesc adesea sisteme de recomandare pe web pentru a lua decizii cu privire la elementele legate de alegerea lor. Sistemele de recomandare sunt instrumente și tehnici software al căror scop este de a face recomandări utile și sensibile unei colecții de utilizatori pentru articole sau produse care ar putea să îi intereseze. 
+\par În ultimii ani internetul este într-o continuă extindere pe aproximativ toate domeniile. După cum se spune că totul are avantajele și dezavantajele sale prin urmare, odată cu extinderea domeniilor vine supraîncărcare de informații și dificultăți în extragerea datelor. Pentru a putea trece mai ușor peste această problemă sistemele de recomandări joacă un rol destul de important.
+
+\par Cadrul sistemului de recomandări joacă un rol vital în navigarea pe internet de astăzi, fie că este vorba de cumpărarea unui produs de pe un site de comerț electronic sau vizionarea unui film laun serviciu video la cerere. În viața noastră de zi cu zi, depindem de recomandările oferite de alte persoane, fie din gură din gură, fie din recenziile sondajelor generale. Oamenii folosesc adesea sisteme de recomandare pe web pentru a lua decizii cu privire la elementele legate de alegerea lor. Sistemele de recomandare sunt instrumente și tehnici software al căror scop este de a face recomandări utile și sensibile unei colecții de utilizatori pentru articole sau produse care ar putea să îi intereseze. 
+
 \par Sistemele de recomandare au devenit răspândite în ultimii ani, deoarece se ocupă de problema suprasolicitării informațiilor, sugerând utilizatorilor cele mai relevante produse dintr-o cantitate masivă de date. Pentru produsele media, recomandările de filme online colaborative încearcă să-i ajute pe utilizatori să acceseze filmele preferate prin captarea precisă a vecinilor similari dintre utilizatori sau filme din evaluările lor istorice comune. Cu toate acestea, din cauza datelor rare, selectarea vecinilor devine din ce în ce mai dificilă odată cu creșterea rapidă a filmelor și a utilizatorilor.
+
 \par Cu alte cuvinte, sistemul de recomandare sau sistemele de recomandare aparțin unei clase de sisteme de filtrare a informațiilor care vizează prezicerea „preferinței” sau „ratingului” acordate unui articol.

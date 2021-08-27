@@ -1,6 +1,5 @@
 %\documentclass[12pt]{scrreprt}
 \documentclass[12pt]{report} 
-
 % language may be romanian or english (default is english)
 % type may be bachelor or master (default is bachelor)
 \usepackage[language=romanian, type=bachelor]{style}
@@ -8,6 +7,7 @@
 %\geometry{a4paper,top=2.5cm,left=3cm,right=2.5cm,bottom=2.5cm}
 %in style
 %controlling the appearance of your headers and footers
+\usepackage{natbib}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{}
@@ -38,13 +38,13 @@ ABSTRACT
 \vspace{0.5cm}	
 %\cleardoublepage
 
-Abstract: un rezumat \^{i}n limba englez\u{a} cu prezentarea, pe scurt, a con\c{t}inutului pe capitole, pun\^{a}nd accent pe contribu\c{t}iile proprii \c{s}i originalitate
+\input{chapters/aabstract.tex}
 
 
 
 \tableofcontents
-
-
+\newpage
+\listoffigures
 \newpage
 \pagenumbering{arabic}
 \input{chapters/chapter1.0}
@@ -54,5 +54,6 @@ Abstract: un rezumat \^{i}n limba englez\u{a} cu prezentarea, pe scurt, a con\c{
 \input{chapters/chapter3}
 \input{chapters/chapter4}
 \input{chapters/chapter5}
+\input{chapters/chapter6_conclusions}
 
 \end{document}

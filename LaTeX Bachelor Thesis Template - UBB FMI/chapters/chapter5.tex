@@ -1,7 +1,7 @@
 \chapter{ Specificarile aplicatiei}
 \label{chap:ch5}
 
-\par Pe partea de back end sunt prezente doua servere, unul scris in JavaScript cu ajutorul framework-ului Node js care serveste partea de front-end cu toate datele de care are nevoie si un server scris in Python cu ajutorul framework-ului Flask cu ajutorul caruia aflu filme recomandate pentru un film sau o lista  de filme.
+\par Pe partea de back end sunt prezente două servere, unul scris în JavaScript cu ajutorul framework-ului Node js care servește partea de front-end cu toate datele de care are nevoie și un server scris în Python cu ajutorul framework-ului Flask cu ajutorul căruia aflu filme recomandate pentru un film sau o lista de filme.
 
 \section{Baza de date}
 \label{sec:ch5sec1}
@@ -12,15 +12,15 @@
 \label{fig}
 \end{figure}
 
-\par Un lucru foarte important in dezvoltarea aplicatiei a fost alegerea bazei de date, am optat pentru pentru MySql versiunea 8.0. In tabelul de User voi salva datele de inregisrare a unui utilizator , in tabelul  Movie sunt prezente datele care descriu un film prin colloanele:title,genre,country,directors,writers,actors,description,votes si rating, in tabelul Rating salvez datele unui rating dat de un user pe laga valoare ratingului salvez si id-urile de la film si user pentru a stii cine da rating si la ce film totodata pe partea de back-end fac si o actualizare a rating ului si numarului de voturi din tabelul Movie asta pentru o a face aplicatia sa se miste mai rapid, iar in tabelul UserMovie salvez id ul de la un user si id ul de la un film reprezentand un film pe care utilizatorul l-a vizualizat.
+\par Un lucru foarte important în dezvoltarea aplicației a fost alegerea bazei de date, am optat pentru pentru MySql versiunea 8.0. În tabelul de User voi salva datele de inregisrare a unui utilizator , în tabelul Movie sunt prezente datele care descriu un film prin coloanele: title,genre,country,directors,writers,actors,description,votes și rating, în tabelul Rating salvez datele unui rating dat de un user pe laga valoare ratingului salvez și id-urile de la film și user pentru a știi cine da rating și la ce film totodată pe partea de back-end fac și o actualizare a rating ului și numărului de voturi din tabelul Movie asta pentru o a face aplicația să se miște mai rapid, iar în tabelul UserMovie salvez id ul de la un user și id ul de la un film reprezentând un film pe care utilizatorul l-a vizualizat.
 
 \section{Server Node Js}
 \label{sec:ch5sec1}
 
-\par Serverul de Node Js este folosit pentru a se face inregistrare, login, returanrea tuturor filmelor care contin un numit sub titlu, adaugarea unui film la lista utilizatorului, returnarea a tuturor filmelor unui utilizator si adaugarea de rating a unui film. Cu ajutorul pachetului Express stabilesc rutele si pornesc serverul. Cand se face un request pe o ruta, se apeleaza functia asignata din Service, care are rol de a modela datele in functie de cum avem nevoie. Pentru a comunica cu baza de date ne folosim de Repository, acesta face legatura cu baza de date.
-\par Standardul REST („representational state transfer”) a fost creat pentru a ghida design-ul și  arhitectura serviciilor web. REST descrie cum ar trebui să se comporte internetul. Orice serviciu care reușește să se încadreze în parametrii și regulile descrise de acest standard se numește un serviciu RESTful. Atunci când o cerere de client se face printr-un API RESTful, acesta transferă o reprezentare a 
-stării resursei către solicitant sau punct final. Aceste informații sau reprezentări sunt livrate într-unul din mai multe formate prin HTTP: JSON (Javascript Object Notation), HTML, XLT, Python, PHP sau text simplu. JSON este cel mai popular limbaj de programare folosit, deoarece, în ciuda numelui său, este limbaj-agnostic, precum și lizibil atât de oameni, cât și de mașini.Altceva de reținut: anteturile și parametrii sunt, de asemenea, importanți în metodele HTTP ale unei cereri HTTP RESTful API, deoarece conțin informații importante de identificare referitoare la metadatele cererii, autorizarea, identificatorul uniform al resurselor (URI), cache, cookie-uri și 
-Mai Mult. Există anteturi de solicitare și anteturi de răspuns, fiecare cu propriile informații de  conexiune HTTP și coduri de stare.
+\par Serverul de Node Js este folosit pentru a se face înregistrare, login, returanrea tuturor filmelor care conțîn un numit sub titlu, adăugarea unui film la lista utilizatorului, returnarea a tuturor filmelor unui utilizator și adăugarea de rating a unui film. Cu ajutorul pachetului Express se stabilesc rutele și se pornesc serverul. Când se face un request pe o ruta, se apelează funcția asignată din Service, care are rol de a modela datele in funcție de cum avem nevoie. Pentru a comunica cu baza de date ne folosim de Repository, acesta face legătură cu baza de date.
+
+\par Standardul REST („representational state transfer”) a fost creat pentru a ghida design-ul și arhitectură serviciilor web. REST descrie cum ar trebui să se comporte internetul. Orice serviciu care reușește să se încadreze în parametrii și regulile descrise de acest standard se numește un serviciu RESTful.  Atunci când o cerere de client se face printr-un API RESTful, acesta transferă o reprezentare a stării resursei către solicitant sau punct final. Aceste informații sau reprezentări sunt livrate într-unul din mai multe formate prin HTTP: JSON (Javascript Object Notation), HTML, XLT, Python, PHP sau text simplu. JSON este cel mai popular limbaj de programare folosit, deoarece, în ciuda numelui său, este limbaj-agnostic, precum și lizibil atât de oameni, cât și de mașini.Altceva de reținut: anteturile și parametrii sunt, de asemenea, importanți în metodele HTTP ale unei cereri HTTP RESTful API, deoarece conțîn informații importante de identificare referitoare la metadatele cererii, autorizarea, identificatorul uniform al resurselor (URI), cache, cookie-uri. Există anteturi de solicitare și anteturi de răspuns, fiecare cu propriile informații de conexiune HTTP și coduri de stare.
+
 \par Serverul respectă standardul REST API. Crearea entităților se face cu PUT, interogările cu GET, ștergerea cu DELETE, iar restul operațiilor cu POST. Specificațiile API în format OpenAPI se pot găsi la documentație API
 
 		\begin{figure}[htbp]
@@ -30,12 +30,12 @@ Mai Mult. Există anteturi de solicitare și anteturi de răspuns, fiecare cu pr
 		\end{figure}
 
 \subsection{Inregistrare}
-\par Procesul de inregistrare este unul simplu, pasii fiind urmatorii:
+\par Procesul de înregistrare este unul simplu, pașii fiind următorii:
 \begin{enumerate}
-  	\item Se trimit datele catre server
-  	\item Se valideaza datele primite 
- 	\item Daca datele sunt valide se verifica daca numele utilizatorului se afla in baza de date deoarece numele trebuie sa fie unic pentru fiecare utiliztor
-	\item Daca totul este bine pana la acest pas se face has la parola pentru o mai buna securitate
+  \item Se trimit datele către server
+	\item Se validează datele primite
+\item Dacă datele sunt valide se verifică dacă numele utilizatorului se află în baza de date deoarece numele trebuie să fie unic pentru fiecare utiliztor
+\item Dacă totul este bine până la acest pas se face has la parolă pentru o mai bună securitate
 		\begin{figure}[htbp]
 			\centerline{\includegraphics[width=15cm, height=4cm]{figures/hasparola.png}}
 			\caption{Has la parola.}
@@ -152,4 +152,31 @@ Mai Mult. Există anteturi de solicitare și anteturi de răspuns, fiecare cu pr
 		\end{enumerate}
 	\item Dupa ce toate datele de autentificare au fost introduse ele se trimit la server, iar daca datele sunt corecte se primeste ca si raspuns token-ul care fa fi salvat in memorie si utilizatorul va fi redirectionat catre pagina principala
 	\item Daca de la server se primeste raspuns negativ se va afisa eroarea, iar pasii trebuie repetati.
+\end{enumerate}
+
+\subsection{Cautare filme}
+\par Pașii sunt:
+
+\begin{enumerate}
+  	\item Dupa ce utilizatorul s-a autentificat acesta este redirectionat catre pagina principala unde poate cauta filme dupa titlu
+	\item Dupa ce introduce titlul pe care acesta il cata si apasa pe buton vor aparea toate filmele care in titlu contin sirul introdus de utilizator
+	\item Fiecare film are doua optiuni, mai multe detalii si adauga la lista
+	\item Daca se alege optiunea de mai multe detalii acesta va fi redirectionat catre pagina unde poate vedea detaliile explicite ale filmului si poate cel mai important se face si o recomandare de patru filme pentru filmul respectiv.Tot pe aceasta pagina se poate da un rating filmului astfel influentand rating-ul filmului.
+	\item Daca se alege optiunea de adaugare la lista acesta se va adauga la lista utilizatorului, vizibila pe alta pagina a aplicatiei, iar aceasta optiune va disparea
+\end{enumerate}
+
+
+\subsection{Lista cu filme}
+
+\begin{enumerate}
+  	\item Pe aceasta pagina se incarca toate filmele utilizatorului cu doua optiuni, se poate sterge filmul din lista sau se poate face redirectionare catre pagina cu detalii explicite ale filmului.
+	\item Tot pe aceasta pagina se poate creea o lista pentru care se poate face recomandari de filme:
+			\begin{enumerate}
+		  	\item Se pasa pe butonul cu plus, iar titlul filmului va aparea intr-o lista pozitionata in partea de sus a pagini, filmul poate fi si deselectat deoarece dupa adaugare va aparea un buton pentru aceasta optiune
+			\item Dupa ce toate filmele au fost selectate se apasa pe buton
+			\item Se vor afisa toate filmele recomandate pentru lista de filme aleasa
+		\end{enumerate}
+	
+
+
 \end{enumerate}
