@@ -34,17 +34,5 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="My movies list" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <SearchIcon />
-      </ListItemIcon>
-      <ListItemText primary="Rating" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <SearchIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
   </div>
 );

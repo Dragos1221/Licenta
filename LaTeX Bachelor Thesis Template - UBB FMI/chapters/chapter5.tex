@@ -32,10 +32,10 @@
 \subsection{Inregistrare}
 \par Procesul de înregistrare este unul simplu, pașii fiind următorii:
 \begin{enumerate}
-  \item Se trimit datele către server
-	\item Se validează datele primite
-\item Dacă datele sunt valide se verifică dacă numele utilizatorului se află în baza de date deoarece numele trebuie să fie unic pentru fiecare utiliztor
-\item Dacă totul este bine până la acest pas se face has la parolă pentru o mai bună securitate
+  	\item Se trimit datele către server
+	\item Se validează datele primite	
+	\item Dacă datele sunt valide se verifică dacă numele utilizatorului se află în baza de date deoarece numele trebuie să fie unic pentru fiecare utiliztor
+	\item Dacă totul este bine până la acest pas se face has la parolă pentru o mai bună securitate
 		\begin{figure}[htbp]
 			\centerline{\includegraphics[width=15cm, height=4cm]{figures/hasparola.png}}
 			\caption{Has la parola.}
@@ -51,76 +51,92 @@
 \end{enumerate}
 
 \subsection{Autentificare}
+
 \par Pașii pentru procesul de autentificare sunt următorii
-\begin{enumerate}
-  	\item Se trimit datele catre server
-  	\item Se valideaza datele primite
-  	\item Se verifica daca username-ul se afla in baza de date 
+
+	\begin{enumerate}
+	
+	\item Se trimit datele catre server
+	
+	\item Se valideaza datele primite
+	
+	\item Se verifica daca username-ul se afla in baza de date
+			
 		\begin{figure}[htbp]
-			\centerline{\includegraphics[width=19cm, height=6cm]{figures/cautare user.png}}
-			\caption{Cautare dupa username in baza de date}
-			\label{fig}
-		\end{figure}	
-	\item Daca se găsește user-ul in baza de date se verifică parola trimisă in requst cu cea din baza de date apoi se trimite raspunsul in functie de potrivirea celor doua parole, daca rapunsul este valid se va trimite id-ul user-ului care va reprezenta token-ul pentru front-end, daca  parolele nu corespund se va trimite status 400 si un mesaj de eroare.
-		\begin{figure}[htbp]
-			\centerline{\includegraphics[width=19cm, height=6cm]{figures/verificare login.png}}
-			\caption{Verificare parola si trimitere raspuns}
-			\label{fig}
-		\end{figure}	
+		
+		\centerline{\includegraphics[width=19cm, height=6cm]{figures/cautare user.png}}
+		
+		\caption{Cautare dupa username in baza de date}
+		
+		\label{fig}
+		
+		\end{figure}
+
+\item Daca se găsește user-ul in baza de date se verifică parola trimisă in requst cu cea din baza de date apoi se trimite raspunsul in functie de potrivirea celor doua parole, daca rapunsul este valid se va trimite id-ul user-ului care va reprezenta token-ul pentru front-end, daca parolele nu corespund se va trimite status 400 si un mesaj de eroare.
+
+	\begin{figure}[htbp]
+
+		\centerline{\includegraphics[width=19cm, height=6cm]{figures/verificare login.png}}
+	
+		\caption{Verificare parola si trimitere raspuns}
+	
+		\label{fig}
+
+	\end{figure}
+
 \end{enumerate}
 
 
 \subsection{Lista filmelor care contin un subtitlu}
 \par Pașii pentru returnarea listii sunt:
 \begin{enumerate}
-  	\item Dupa se se apeleaza ruta specifica se ia din body titlul
-  	\item Se apeleaza functioa din repository care returneaza lista
-  	\item In repository se iau toate filmele din baza de date apoi se parcurg pentru a pastra doar filmele care contin subtitlul dat.
+  	\item După ce se apelează ruta specifică se ia din body titlul
+  	\item Se apelează functioa din repository care returnează lista
+  	\item În repository se iau toate filmele din baza de date apoi se parcurg pentru a păstra doar filmele care conțin subtitlul dat.
 		\begin{figure}[htbp]
 			\centerline{\includegraphics[width=19cm, height=6cm]{figures/cautarea filme.png}}
 			\caption{Functia din repository care cauta filmele}
 			\label{fig}
 		\end{figure}	
-			
 \end{enumerate}
 
 \subsection{Adaugarea unui film la lista}
-\par Pașii pentru adaugare sunt:
+\par Pașii pentru adăugare sunt:
 \begin{enumerate}
   	\item Exista o ruta care trebuie sa primeasca intr-un body id-ul user-ului si id-ul unui film
-  	\item Se apeleaza functia din service respectiva rutei
-	\item Se adauga cele doua id uri in baza de date
-  	\item In cazul unei erori se returneaza codul 400, iar daca totul s-a executat asa cum trebuie se returneaza codul 200 si statusul true.
+  	\item Se apelează funcția din service respectivă rutei
+	\item Se adaugă cele două id uri în baza de date
+  	\item În cazul unei erori se returnează codul 400, iar dacă totul s-a executat așa cum trebuie se returnează codul 200 și statusul true.
 		\begin{figure}[htbp]
 			\centerline{\includegraphics[width=10cm, height=6cm]{figures/adaugare film lista.png}}
 			\caption{Functia pentru ruta de adaugat filme}
 			\label{fig}
 		\end{figure}	
-	\item In cazul in care se doreste stergerea filmului respectiv din lista se apeleaza ruta "/del" cu cele 2 id-uri
+	\item  În cazul în care se dorește ștergerea filmului respectiv din lista se apelează ruta "/del" cu cele 2 id-uri
 \end{enumerate}
 
 
 \subsection{Acordare rating}
 \par Pașii pentru adaugare sunt:
 \begin{enumerate}
-  	\item Exista o ruta care trebuie sa primeasca intr-un body id-ul user-ului , nota data si id-ul filmului
-  	\item Se apeleaza functia din service respectiva rutei
+  	\item Există o ruta care trebuie să primească într-un body id-ul user-ului , notă dată și id-ul filmului
+  	\item Se apelează funcția din service respectivă rutei
 	\item Se adauga cele doua id uri si nota in baza de date 
-	\item In baza de date cu filme se modifica la id-ul filmului: se incrementeaza cu unu numarul de votanti si se aduna la rating nota data, acest lucru ajuta la calcularea mediei generale a filmului fara a mai face un select cu toate notele unui film.
-  	\item In cazul unei erori se returneaza codul 400, iar daca totul s-a executat asa cum trebuie se returneaza codul 200 si statusul true.
+	\item În baza de date cu filme se modifică la id-ul filmului: se incrementeaza cu unu numărul de votanți și se adună la rating notă dată, acest lucru ajută la calcularea mediei generale a filmului fără a mai face un select cu toate notele unui film.
+  	\item În cazul unei erori se returnează codul 400, iar dacă totul s-a executat așa cum trebuie se returnează codul 200 și statusul true.
 		\begin{figure}[htbp]
 			\centerline{\includegraphics[width=15cm, height=5cm]{figures/functie rating.png}}
 			\caption{Functia pentru ruta de adaugat filme}
 			\label{fig}
 		\end{figure}	
-	\item In cazul in care se doreste stergerea filmului respectiv din lista se apeleaza ruta "/del" cu cele 2 id-uri
+	\item  În cazul în care se dorește ștergerea filmului respectiv din lista se apelează ruta "/del" cu cele 2 id-uri
 \end{enumerate}
 
 \section{Server Flask}
 \label{sec:ch5sec1}
 
-\par Seveverul scris cu ajutorul framework-ului Flask este cel care face recomandari pentru un film sau pentru o lista de filme. La pornirea acestui server trebuie sa se stepte un anumit timp deoarece la pornire acesta ia toate datele de la baza de date apoi le proceseaza si calculeaza matricea de scoruri, face toate acestea pentru ca atunci cand un client cere recomandari pentru un film raspunsul sa fie minim si sa nu fie nevoie sa faca toate aceste calcule. Exista un dezanjantaj la aceasta metoda, daca intervin modificari la baza de date in acest timp nu  vor influenta scorurile, de exemplu daca un film va fi votat cu multe voturi nu se regasi in scorul final sau daca un film este sters din baza de date algoritmul din acest server inca il poate recomanda. Exista totusi variante pentru aceste probleme, se poate creea o functie care  sa reincarce datele iar la apelarea aceesteia sa se recalculeze matricele de scoruri, iar o a doua varianta putin mai neconvetionala se poate opri si reporni server ul acesta recalculand scorurile. Primul lucru pe care il face serverul dupa citire este procesarea datelor, dupa care creeaza sacul de cuvinte si vectorii care reprezinta filmele, urmatorul pas fiind calcularea scorului.Server-ul are doua rute una in care returneaza recomandaripentru un film si o ruta care returneza recomandari pentru o lista de filme.
-\par Pentru a face recomandari pentru un film algoritumul ia din linia din matricea de scoruri cele mai mari n scoruri, n reprezentand numarul de filme pe care algoritmul trebuie sa il recomande, apoi returneaza o lista cu detaliile filmelor. Atunci cand se cere recomandari pentru o lista de filme algoritmul ia din matricea de scoruri mai multe filme pentru fiecare film, la final sortandu-le dupa scor si returneaza n filme cu cele mai bune scoruri. 
+\par Seveverul scris cu ajutorul framework-ului Flask este cel care face recomandări pentru un film sau pentru o lista de filme. La pornirea acestui server trebuie să se aștepte un anumit timp deoarece la pornire acesta ia toate datele de la baza de date apoi le procesează și calculează matricea de scoruri, face toate acestea pentru că atunci când un client cere recomandări pentru un film răspunsul să fie minim și să nu fie nevoie să facă toate aceste calcule. Există un dezanjantaj la această metodă, dacă intervin modificări la baza de date în acest timp nu vor influență scorurile, de exemplu dacă un film va fi votat cu multe voturi nu se regăși în scorul final sau dacă un film este șters din baza de date algoritmul din acest server încă îl poate recomandă. Există totuși variante pentru aceste probleme, se poate creea o funcție care să reîncarce datele iar la apelarea aceesteia să se recalculeze matricele de scoruri, iar o a două varianta puțîn mai neconvetionala se poate opri și reporni server ul acesta recalculand scorurile. Primul lucru pe care îl face serverul după citire este procesarea datelor, după care creează sacul de cuvinte și vectorii care reprezintă filmele, următorul pas fiind calcularea scorului.Server-ul are două rute una în care returnează recomandaripentru un film și o ruta care returneza recomandări pentru o lista de filme.
+\par Pentru a face recomandări pentru un film algoritumul ia din linia din matricea de scoruri cele mai mari n scoruri, n reprezentând numărul de filme pe care algoritmul trebuie să îl recomande, apoi returnează o lista cu detaliile filmelor. Atunci când se cere recomandări pentru o lista de filme algoritmul ia din matricea de scoruri mai multe filme pentru fiecare film, la final sortandu-le după scor și returnează n filme cu cele mai bune scoruri.
 \begin{figure}[!h]
 			\centerline{\includegraphics[width=15cm, height=6cm]{figures/prelucrare.png}}
 			\caption{Prelucrarea datelor}
@@ -136,45 +152,44 @@
 \section{Front-end}
 \label{sec:ch5sec1}
 
-\par Front-endul este reprezentat de un site web scris cu ajutorul framework-ului React Js. Proiectul este impartit pe pagini care la randul lor contin diferite componente. Aceasta metoda a componentelor este foarte utila atunci cand se refoloseste cod, este ca si o functie care este scrisa o singura data dar este apelata in mai multe locuri. Exista doua tipuri de pagini, publice si private, cele publice pot fi accesate de un user fara a fi neoie de autentificare, iar cele publice necesita o autentificare. Stilizarea site-ului web se face cu ajutorul CSS-ului in doua moduri, una fiin prin importarea fisierelor de CSS in componente si pagini si una cu ajutorul injectarii in componente cu ajutorul JavaScript. Pentru a putea naviga intre pagini exista un router in care se specifica pentru fiecare ruta din aplicatie pagina care trebuie sa fie afisata si daca aceasta este publica sau privata, in cazul in care este privata iar user-ul nu s-a autentificat acesta va fi redirectionat la una din rutele publice. Acesta respectă standardul REST și se folosește de librăria axios pentru a face cereri către server.
-
+\par Front-endul este reprezentat de un site web scris cu ajutorul framework-ului React Js. Proiectul este împărțit pe pagini care la rândul lor conțîn diferite componente. Această metodă a componentelor este foarte utilă atunci când se refolosește cod, este că și o funcție care este scrisă o singură dată dar este apelată în mai multe locuri. Există două tipuri de pagini, publice și private, cele publice pot fi accesate de un user fără a fi neoie de autentificare, iar cele publice necesită o autentificare. Stilizarea site-ului web se face cu ajutorul CSS-ului în două moduri, una fiin prin importarea fișierelor de CSS în componente și pagini și una cu ajutorul injectării în componente cu ajutorul JavaScript. Pentru a putea naviga între pagini există un router în care se specifică pentru fiecare ruta din aplicație pagină care trebuie să fie afișată și dacă această este publică sau privată, în cazul in care este privată iar user-ul nu s-a autentificat acesta va fi redirecționat la una din rutele publice. Acesta respectă standardul REST și se folosește de librăria axios pentru a face cereri către server.
 \subsection{Autentificare si inregistrare}
 \par Pașii sunt:
 
 \begin{enumerate}
-  	\item Atunci cand utilizatorul acceseaza site-ul web este redirectionat la pagina de autentificare unde trebuie sa introduca userul si parola
-	\item Daca nu are un cont poate apasa re butonul de inregistrare unde va fi redirectionat catre pagina de inregistrare:
+  	\item Atunci când utilizatorul accesează site-ul web este redirecționat la pagină de autentificare unde trebuie să introducă userul și parolă
+	\item Dacă nu are un cont poate apasă re butonul de înregistrare unde va fi redirecționat către pagină de înregistrare:
 		\begin{enumerate}
-		  	\item Dupa completarea folmularului de inregistrare si pasarea butonului datele vor fi validate
-			\item Urmatorul pas este de a trimite datele la server
-			\item Daca se primeste status 200 userv-ul va fi redirectionat catre pagina de autentificare
-			\item Daca se primeste alt status se va afisa eroarea, iar pasii de inregistrare trebuie repetati pana se introduc date valide	
+		  	\item După completarea folmularului de înregistrare și pasărea butonului datele vor fi validate
+			\item Următorul pas este de a trimite datele la server
+			\item Dacă se primește status 200 userv-ul va fi redirecționat către pagină de autentificare
+			\item Dacă se primește alt status se va afișa eroarea, iar pașii de înregistrare trebuie repetați până se introduc date valide 
 		\end{enumerate}
-	\item Dupa ce toate datele de autentificare au fost introduse ele se trimit la server, iar daca datele sunt corecte se primeste ca si raspuns token-ul care fa fi salvat in memorie si utilizatorul va fi redirectionat catre pagina principala
-	\item Daca de la server se primeste raspuns negativ se va afisa eroarea, iar pasii trebuie repetati.
+	\item După ce toate datele de autentificare au fost introduse ele se trimit la server, iar dacă datele sunt corecte se primește că și răspuns token-ul care fă fi salvat în memorie și utilizatorul va fi redirecționat către pagină principala
+	\item Dacă de la server se primește răspuns negativ se va afișa eroarea, iar pașii trebuie repetați.
 \end{enumerate}
 
 \subsection{Cautare filme}
 \par Pașii sunt:
 
 \begin{enumerate}
-  	\item Dupa ce utilizatorul s-a autentificat acesta este redirectionat catre pagina principala unde poate cauta filme dupa titlu
-	\item Dupa ce introduce titlul pe care acesta il cata si apasa pe buton vor aparea toate filmele care in titlu contin sirul introdus de utilizator
-	\item Fiecare film are doua optiuni, mai multe detalii si adauga la lista
-	\item Daca se alege optiunea de mai multe detalii acesta va fi redirectionat catre pagina unde poate vedea detaliile explicite ale filmului si poate cel mai important se face si o recomandare de patru filme pentru filmul respectiv.Tot pe aceasta pagina se poate da un rating filmului astfel influentand rating-ul filmului.
-	\item Daca se alege optiunea de adaugare la lista acesta se va adauga la lista utilizatorului, vizibila pe alta pagina a aplicatiei, iar aceasta optiune va disparea
+  	\item După ce utilizatorul s-a autentificat acesta este redirecționat către pagină principala unde poate caută filme după titlu
+	\item După ce introduce titlul pe care acesta îl câtă și apasă pe buton vor apărea toate filmele care în titlu conțin șirul introdus de utilizator
+	\item Fiecare film are două opțiuni, mai multe detalii și adaugă la lista
+	\item Dacă se alege opțiunea de mai multe detalii acesta va fi redirecționat către pagină unde poate vedea detaliile explicite ale filmului și poate cel mai important se face și o recomandare de patru filme pentru filmul respectiv.Tot pe această pagină se poate da un rating filmului astfel influențând rating-ul filmului.
+	\item Dacă se alege opțiunea de adăugare la lista acesta se va adaugă la lista utilizatorului, vizibilă pe altă pagină a aplicației, iar această opțiune va dispărea
 \end{enumerate}
 
 
 \subsection{Lista cu filme}
 
 \begin{enumerate}
-  	\item Pe aceasta pagina se incarca toate filmele utilizatorului cu doua optiuni, se poate sterge filmul din lista sau se poate face redirectionare catre pagina cu detalii explicite ale filmului.
-	\item Tot pe aceasta pagina se poate creea o lista pentru care se poate face recomandari de filme:
+  	\item Pe această pagină se încarcă toate filmele utilizatorului cu două opțiuni, se poate șterge filmul din lista sau se poate face redirecționare către pagină cu detalii explicite ale filmului.
+	\item Tot pe această pagină se poate creea o lista pentru care se poate face recomandări de filme:
 			\begin{enumerate}
-		  	\item Se pasa pe butonul cu plus, iar titlul filmului va aparea intr-o lista pozitionata in partea de sus a pagini, filmul poate fi si deselectat deoarece dupa adaugare va aparea un buton pentru aceasta optiune
-			\item Dupa ce toate filmele au fost selectate se apasa pe buton
-			\item Se vor afisa toate filmele recomandate pentru lista de filme aleasa
+		  	\item Se pasă pe butonul cu plus, iar titlul filmului va apărea într-o lista poziționată în partea de sus a pagini, filmul poate fi și deselectat deoarece după adăugare va apărea un buton pentru această opțiune
+			\item  După ce toate filmele au fost selectate se apasă pe buton
+			\item Se vor afișa toate filmele recomandate pentru lista de filme aleasă
 		\end{enumerate}
 	
 

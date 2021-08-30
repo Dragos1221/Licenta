@@ -6,10 +6,10 @@ const searchMovies = async (title) => {
     pool.query(command, (err, data) => {
       if (err) reject(err);
       const result = data.reduce((acc, elem) => {
-        if (elem.title.includes(title)) acc.push(elem);
+        if (elem.title.toLowerCase().includes(title.toLowerCase())) acc.push(elem);
         return acc;
       }, []);
-      resolve(result);
+      resolve(result.slice(0, 100));
     });
   });
   return prom;

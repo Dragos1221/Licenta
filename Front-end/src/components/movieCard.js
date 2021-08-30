@@ -35,7 +35,7 @@ export default function ({ details, isInList, refresList, buttons = true }) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardContent>
+        <CardContent style={{ height: 170 }}>
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>

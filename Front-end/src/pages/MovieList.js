@@ -8,6 +8,7 @@ import MovieCard from "../components/movieCard";
 import Navigation from "../components/NavBar";
 import { getMyMovie } from "../Remote";
 import AddIcon from "@material-ui/icons/Add";
+import { Button } from "@material-ui/core";
 import Toople from "../components/toople";
 import { getMovieRecommandedList } from "../Remote";
 
@@ -121,18 +122,24 @@ export default function () {
           <h2>Movie for recomandation:</h2>
           <ul>
             {l.reduce((reducer, item) => {
-              reducer.push(<li key={item.id}>{item.title}</li>);
+              reducer.push(
+                <li key={item.id} style={{ fontSize: 20 }}>
+                  {item.title}
+                </li>
+              );
               return reducer;
             }, [])}
           </ul>
-          <button
+          <Button
+            color="primary"
+            variant="contained"
             onClick={() => {
               const l = getListMovieRecom();
               const recom = getRecom(l);
             }}
           >
-            Recom
-          </button>
+            Make recommendations
+          </Button>
           <div className="searchContainer"></div>
           <h2>Filme recomandate:</h2>
           <div
